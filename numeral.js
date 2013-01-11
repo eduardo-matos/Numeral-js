@@ -432,65 +432,62 @@
         Numeral Prototype
     ************************************/
 
+    Numeral.prototype.clone = function () {
+        return numeral(this);
+    };
 
-    numeral.fn = Numeral.prototype = {
+    Numeral.prototype.format = function (inputString) {
+        return formatNumeral(this, inputString ? inputString : numeral.defaultFormat);
+    };
 
-        clone : function () {
-            return numeral(this);
-        },
+    Numeral.prototype.unformat = function (inputString) {
+        return unformatNumeral(this, inputString ? inputString : numeral.defaultFormat);
+    };
 
-        format : function (inputString) {
-            return formatNumeral(this, inputString ? inputString : numeral.defaultFormat);
-        },
+    Numeral.prototype.value = function () {
+        return this._n;
+    };
 
-        unformat : function (inputString) {
-            return unformatNumeral(this, inputString ? inputString : numeral.defaultFormat);
-        },
+    Numeral.prototype.valueOf = function () {
+        return this._n;
+    };
 
-        value : function () {
-            return this._n;
-        },
+    Numeral.prototype.set = function (value) {
+        this._n = Number(value);
+        return this;
+    };
 
-        valueOf : function () {
-            return this._n;
-        },
+    Numeral.prototype.add = function (value) {
+        this._n = this._n + Number(value);
+        return this;
+    };
 
-        set : function (value) {
-            this._n = Number(value);
-            return this;
-        },
+    Numeral.prototype.subtract = function (value) {
+        this._n = this._n - Number(value);
+        return this;
+    };
 
-        add : function (value) {
-            this._n = this._n + Number(value);
-            return this;
-        },
+    Numeral.prototype.multiply = function (value) {
+        this._n = this._n * Number(value);
+        return this;
+    };
 
-        subtract : function (value) {
-            this._n = this._n - Number(value);
-            return this;
-        },
+    Numeral.prototype.divide = function (value) {
+        this._n = this._n / Number(value);
+        return this;
+    };
 
-        multiply : function (value) {
-            this._n = this._n * Number(value);
-            return this;
-        },
+    Numeral.prototype.difference = function (value) {
+        var difference = this._n - Number(value);
 
-        divide : function (value) {
-            this._n = this._n / Number(value);
-            return this;
-        },
-
-        difference : function (value) {
-            var difference = this._n - Number(value);
-
-            if (difference < 0) {
-                difference = -difference;
-            }
-
-            return difference;
+        if (difference < 0) {
+            difference = -difference;
         }
 
+        return difference;
     };
+
+    numeral.fn = Numeral.prototype;
 
     /************************************
         Exposing Numeral
